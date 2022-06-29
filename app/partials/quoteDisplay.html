@@ -1,0 +1,42 @@
+<div class="panel-body">
+   <div class="col-md-12">
+      <div class="row">
+         <h4>{{stock.name}} ({{stock.code.slice(0, -3) | uppercase}})</h4>
+         <h6 ng-if="quote.Name == null && processing == ''">Data Not Available :(</h6>
+         <!-- Stop table moving -->
+      </div>
+      <div class="row">
+         <table class="table table-bordered">
+            <tr class="active">
+               <td>Current Price</td>
+               <td>Bid</td>
+               <td>Ask</td>
+               <td>High</td>
+               <td>Low</td>
+               <td>Open</td>
+               <td>Previous Close</td>
+               <td>Last Dividend Date</td>
+               <td>
+                  Last Dividend Amount
+                  <button class="glyphicon glyphicon-info-sign">
+                     <span>
+                        A sum of money paid regularly (typically annually) by a company to its shareholders out of its profits (or reserves).
+                     </span>
+                  </button>
+               </td>
+            </tr>
+            <tr>
+               <td>{{quote.LastTradePriceOnly}}{{processing}}</td>
+               <td>{{quote.Bid}}</td>
+               <td>{{quote.Ask}}</td>
+               <td>{{quote.DaysHigh}}</td>
+               <td>{{quote.DaysLow}}</td>
+               <td>{{quote.Open}}</td>
+               <td>{{quote.PreviousClose}}</td>
+               <td>{{dividends.LastDate | date:"dd/MM/yyyy"}}</td>
+               <td>{{dividends.LastAmount | number:2}}</td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default navbar-fixed-top rustic-pink" ng-controller="NavController">
+   <div class="container">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" ng-init="navbarCollapsed = true" ng-click="navbarCollapsed = !navbarCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         </button>
+         <a class="navbar-brand" href="/#/">Risk</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" collapse="navbarCollapsed">
+         <ul class="nav navbar-nav market-status">
+            <li ng-if="marketOpen"><b>Market Open</b></li>
+            <li ng-if="!marketOpen"><i>Market Closed</i></li>
+         </ul>
+         <ul class="nav navbar-nav custom-nav-pills">
+            <li ng-repeat="link in pills" role="presentation">
+               <a href="{{link.href}}" class="{{link.class}}">{{link.label}}</a>
+            </li>
+         </ul>
+         <ul class="nav navbar-nav navbar-right">
+            <li ng-repeat="modal in modals"><a ng-click="openModal(modal)">{{modal}}</a></li>
+            <li ng-repeat="(label, link) in links"><a href="{{link}}">{{label}}</a></li>
+         </ul>
+      </div>
+   </div>
+</nav>
+<toast></toast>

@@ -1,0 +1,47 @@
+runtime: python27
+api_version: '1'
+env: standard
+threadsafe: true
+instance_class: F1
+libraries:
+  - name: webapp2
+    version: latest
+  - name: jinja2
+    version: latest
+  - name: numpy
+    version: latest
+  - name: markupsafe
+    version: latest
+  - name: setuptools
+    version: latest
+handlers:
+  - url: /favicon.ico
+    static_files: favicon.ico
+    upload: favicon.ico
+  - url: /app/css/(.*)
+    static_files: app/css/\1
+    upload: app/css/.*
+  - url: /app/partials/(.*)
+    static_files: app/partials/\1
+    upload: app/partials/.*
+  - url: /app/img/(.*)
+    static_files: app/img/\1
+    upload: app/img/.*
+  - url: /app/js/(.*)
+    static_files: app/js/\1
+    upload: app/js/.*
+  - url: /py/.*
+    script: py.app
+  - url: /app/(.*)
+    static_files: __static__/app/\1
+    upload: __static__/app
+  - url: /.*
+    script: user_system.app
+    secure: always
+  - url: /py/.*
+    script: py.app
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic

@@ -1,0 +1,24 @@
+<div class="panel-body col-md-12">
+   <div class="row">
+      <label class="chart-label">ASX:
+         <input type="checkbox" ng-model="overlayASX" ng-click="addOverlays()">
+      </label>
+      <label class="chart-label">10-day Exponential Moving Average:
+         <input type="checkbox" ng-model="overlayEMA" ng-click="addOverlays()">
+      </label>
+      <label class="chart-label">Simple Moving Average:
+         <input type="checkbox" ng-model="overlaySMA" ng-click="addOverlays()">
+      </label>
+      <label class="chart-label" ng-if="overlaySMA">Moving Average period:
+         <input type="text" name="period" ng-model="averagePeriod">
+         <button class="btn btn-primary" type="button" ng-click="addOverlays(averagePeriod)">Change period</button>
+      </label>
+      <div>
+         {{processingHistory}}
+      </div>
+   </div>
+
+   <div class="row">
+      <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+   </div>
+</div>

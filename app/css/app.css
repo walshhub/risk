@@ -1,0 +1,443 @@
+/* WELCOME PAGE */
+
+body {
+   background-color: #E9E9E9;
+}
+
+a {
+   cursor: pointer;
+}
+
+.panel-default>.panel-heading {
+   background-color: #FF7D79;
+   color: #FFFFFF;
+}
+
+.rustic-pink {
+   background-color: #DF514C;
+   border-color: #C62828;
+   color: #FFFFFF;
+}
+
+/* Bootstrap uses negative margins for navbar-nav which causes horizontal
+/* scroll bars to appear. Set margin to 0 to fix the issue.*/
+.navbar-nav {
+    margin: 0;
+}
+
+/* Overwrite default navbar text to be white */
+.navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
+   color: #FFFFFF;
+   margin-left: 10px;
+   height: 10px;
+   line-height: 0;
+   margin-top: 10px;
+}
+
+.navbar-default .navbar-brand {
+   margin-right: 30px;
+}
+
+.navbar-default .navbar-brand:hover {
+   color: #FFFFFF;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover, .navbar-nav>li>a.active {
+   background-color: #C62828;
+   border-radius: 25px;
+   color: #FFFFFF;
+   height:10px;
+   margin-top: 10px;
+   line-height: 0px;
+}
+
+.register-text {
+   color: #DF514C;
+   font-size: 36px;
+   text-align: center;
+}
+
+.register-text:hover {
+   color: #DF514C;
+}
+
+.top-spacer-100 {
+   margin-top: 100px;
+}
+
+.top-spacer-70 {
+   margin-top: 70px;
+}
+
+.top-spacer-50 {
+    margin-top: 50px;
+}
+
+.top-spacer-20 {
+    margin-top: 20px;
+}
+
+.greeting {
+   color: rgba(0, 0, 0, 0.6);
+   font-size: 25px;
+   font-weight: 700;
+   text-transform: uppercase;
+   text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.landing-topbar {
+   background-color: rgba(223,81,76,1);
+   min-height: 50px;
+   height:auto;
+}
+
+.landing-topbar-title {
+   float:left;
+   width:50%;
+   font-size:36px;
+}
+
+.landing-topbar-buttons {
+   float: right;
+   padding-right: 10px;
+   position: relative;
+   font-size: 170%;
+   font-color: red;
+}
+
+.link-banner {
+   height: 300px;
+   background-position: 50% 50%;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+}
+
+.link-banner a {
+   color: rgba(255, 255, 255, 0.6);
+   padding-top: 85px;
+   font-size: 76px;
+   font-weight: 700;
+   text-align: center;
+   text-transform: uppercase;
+   text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.vert-center {
+   height: 100%;
+   vertical-align: middle;
+   display: inline-block;
+   float: none;
+}
+
+#left-col {
+   float: left;
+   width: 50%;
+   font-size: 150%;
+}
+
+#right-col {
+   float: right;
+   width: 50%;
+}
+
+.arrow-down {
+   width: 0;
+   height: 0;
+   border-left: 20px solid transparent;
+   border-right: 20px solid transparent;
+   border-top: 20px solid rgba(255, 255, 255, 0.8);
+}
+
+.arrow-down:hover {
+   width: 0;
+   height: 0;
+   border-left: 30px solid transparent;
+   border-right: 30px solid transparent;
+   border-top: 30px solid rgba(255, 255, 255, 0.8);
+}
+
+
+/* The below code is adapted from http://callmenick.com/post/simple-parallax-scrolling-effect */
+
+section.module:last-child {
+  margin-bottom: 0;
+}
+
+section.module h2 {
+  margin-bottom: 40px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 30px;
+}
+section.module p {
+  margin-bottom: 40px;
+  font-size: 16px;
+  font-weight: 300;
+}
+section.module p:last-child {
+  margin-bottom: 0;
+}
+section.module.content {
+  padding: 40px 0;
+}
+section.module.content-transp {
+  padding: 40px 0;
+  background-color: rgba(255,255,255,0.5);
+}
+section.module.parallax {
+  height: 600px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+section.module.parallax h1 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 48px;
+  position: relative;
+  margin-top: 28vh;
+  /*line-height: 75vh;*/
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+section.module.parallax-1 {
+   height: 100vh;
+   background-image: url("../img/MinimalOceanHorizon.jpg");
+}
+section.module.parallax-2 {
+   padding: 40px 0;
+   background-image: linear-gradient(
+      rgba(255,255,255,0.7),
+      rgba(255,255,255,0.7)
+   ), url("../img/MinimalOceanHorizon.jpg");
+}
+section.module.parallax-3 {
+   height: 50vh;
+   background-image: url("../img/MinimalOceanHorizon.jpg");
+}
+
+@media all and (min-width: 600px) {
+  section.module h2 {
+    font-size: 42px;
+  }
+  section.module p {
+    font-size: 20px;
+  }
+  section.module.parallax h1 {
+    font-size: 96px;
+  }
+}
+@media all and (min-width: 960px) {
+  section.module.parallax h1 {
+    font-size: 160px;
+  }
+}
+
+.news {
+   height: 367px;
+   overflow-y: scroll;
+   border-width: 1px;
+   border-style: outset;
+}
+
+.companies {
+   height: 567px;
+   margin-bottom: 20px;
+   overflow-y: scroll;
+}
+
+#line, #bar {
+   height: 150px;
+}
+
+.welcome {
+   max-width: 100%;
+   border-width: 1px;
+   border-style:groove;
+}
+
+.table {
+  margin-bottom: 0px;
+}
+
+/* Adapted from: http://codepen.io/Savantos/pen/mHIpt*/
+
+@import url(http://fonts.googleapis.com/css?family=Nunito:300);
+
+.button
+{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+  margin: 5em auto;
+  top:0; right:0; bottom:0; left:0;
+  padding: 20px 0;
+  width: 220px;
+  background: #FFF;
+  border: 1px solid #FFF;
+  overflow: hidden;
+  transition: all 0.1s;
+}
+
+.button-red
+{
+  color: #C62828;
+}
+
+.button-green
+{
+  color: #0C5;
+}
+
+
+.button:hover, .button:active
+{
+  text-decoration: none;
+  color: #FFF;
+  border-color: #FFF;
+  cursor: pointer;
+}
+
+.button-red:hover, .button-red:active
+{
+  background: #C62828;
+}
+
+.button-green:hover, .button-green:active
+{
+  background: #0C5;
+}
+
+
+.button span
+{
+  display: inline-block;
+  position: relative;
+  padding-right: 0;
+
+  transition: padding-right 0.5s;
+}
+
+.button span:after
+{
+  content: ' ';
+  position: absolute;
+  top: 0;
+  right: -18px;
+  opacity: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: -10px;
+  background: rgba(0, 0, 0, 0);
+  border-top: none;
+  border-right: none;
+
+  transition: opacity 0.5s, top 0.5s, right 0.5s;
+}
+
+.button-red span:after
+{
+  border: 3px solid #C62828;
+}
+
+.button-green span:after
+{
+  border: 3px solid #0C5;
+}
+
+
+.button
+{
+   font-size: inherit;
+}
+
+.double-top-border
+{
+  border-top-style: double;
+}
+
+.panel-title a
+{
+   display: block;
+   padding: 10px 15px;
+   margin: -10px -15px;
+}
+
+.panel-title a:hover
+{
+   text-decoration: none;
+}
+
+.panel-title a:focus
+{
+   text-decoration: none;
+   outline: 0px;
+}
+
+h4.panel-title
+{
+   font-size: 14px;
+   font-weight: normal;
+}
+
+.panel-heading-link
+{
+  color: #FFFFFF;
+}
+
+.panel-heading-link:hover
+{
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.form-padding
+{
+  padding-top: 7px;
+}
+
+.chart-label
+{
+   padding-left: 15px;
+}
+
+.market-status
+{
+  padding-top: 15px;
+  margin-right: 20px;
+}
+
+button span
+{
+   display: none;
+   color: #fff;
+   background: rgba(51,51,51,0.75);
+   padding: 10px;
+   border-radius: 4px;
+   width: 200px;
+   position: absolute;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+   font-size: 12px;
+   text-align: left;
+   z-index: 10;
+}
+
+button
+{
+   display:inline-block;
+}
+
+button:hover span{
+   display:block;
+}
+
+.glyphicon-info-sign {
+  border:0;
+  background:rgba(255,255,255,0);
+}

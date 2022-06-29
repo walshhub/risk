@@ -1,0 +1,49 @@
+<div class="panel-body">
+   <div class="col-md-6">
+      <h4>
+         Buy Depth
+         <button class="glyphicon glyphicon-info-sign">
+            <span>
+               Buy depth is a list of buy orders, organised by price level and updated to reflect real-time market activity.
+            </span>
+         </button>
+      </h4>
+      <table class="table table-bordered">
+         <tr class="active">
+            <td>Price</td>
+            <td>Volume</td>
+         </tr>
+         <!-- The bid depth here is different to the ask depth below because here we need to use a list of keys sorted in descending order -->
+         <tr ng-repeat="price in depthKeys">
+            <td>{{price | number:3}}</td>
+            <td ng-repeat="item in depthBids[price]">{{item}}</td>
+         </tr>
+         <tr ng-if="depthBids == null">
+            <td colspan="3"><i>Select a stock to see depth</i></td>
+         </tr>
+      </table>
+   </div>
+   <div class="col-md-6">
+      <h4>
+         Sell Depth
+         <button class="glyphicon glyphicon-info-sign">
+            <span>
+               Sell depth is a list of sell orders, organised by price level and updated to reflect real-time market activity.
+            </span>
+         </button>
+      </h4>
+      <table class="table table-bordered">
+         <tr class="active">
+            <td>Price</td>
+            <td>Volume</td>
+         </tr>
+         <tr ng-repeat="(price, orderList) in depthAsks">
+            <td>{{price | number:3}}</td>
+            <td ng-repeat="item in orderList">{{item}}</td>
+         </tr>
+         <tr ng-if="depthAsks == null">
+            <td colspan="3"><i>Select a stock to see depth</i></td>
+         </tr>
+      </table>
+   </div>
+</div>

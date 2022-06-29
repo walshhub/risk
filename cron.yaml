@@ -1,0 +1,5 @@
+cron:
+- description: Market order execution
+  url: /order?execution=true
+  schedule: every 1 minutes from 10:00 to 16:00
+  timezone: Australia/NSW

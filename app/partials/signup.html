@@ -1,0 +1,41 @@
+<div class="modal-header">
+   <h4 class="modal-title">Register</h4>
+</div>
+<form name="register" class="form-horizontal" ng-submit="addUser()">
+   <fieldset>
+      <div class="modal-body">
+         <p class="text-center"><span class="label label-danger" ng-if="message">{{message}}</span></p>
+         <div class="form-group">
+            <label for="email" class="col-md-4 control-label">Email</label>
+            <div class="col-md-5">
+               <input type="email" class="form-control" id="email" ng-model="user.email" required />
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="name" class="col-md-4 control-label">Username</label>
+            <div class="col-md-5">
+               <input type="text" class="form-control" id="name" ng-model="user.name" required />
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="password" class="col-md-4 control-label">Password</label>
+            <div class="col-md-5">
+               <input type="password" class="form-control" id="password" ng-model="user.password" required />
+            </div>
+          </div>
+
+         <div class="form-group">
+            <label for="password_again" class="col-md-4 control-label">Confirm Password</label>
+            <div class="col-md-5">
+               <input type="password" class="form-control" id="password_again" ng-model="user.password_again" required />
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+         <button type="submit" name="submit" id="submit" class="btn btn-primary">Register</button>
+         <button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+      </div>
+   </fieldset>
+</form>

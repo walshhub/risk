@@ -1,0 +1,97 @@
+<div ng-if="loggedIn">
+   <!-- Navbar -->
+   <nav-bar links="navLinks" pills="navPills" modals="navModals" ng-init="updateNav(0)"></nav-bar>
+   <div class="container">
+      <div class="page-header top-spacer-100">
+        <h1 class="text-center">Welcome to Risk!</h1>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <div class="thumbnail">
+               <img class="top-spacer-20" src="https://d30y9cdsu7xlg0.cloudfront.net/png/4278-200.png" alt="trade">
+               <div class="caption">
+                  <h3>Trading</h3>
+                  <p>Start trading stocks on the market using real data and company information to guide your decision making.</p>
+                  <p class="text-center top-spacer-20"><a href="#/trade" class="btn btn-primary" role="button">Start Trading</a></p>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="thumbnail">
+               <img class="top-spacer-20" src="https://d30y9cdsu7xlg0.cloudfront.net/png/4193-200.png" alt="placeholder">
+               <div class="caption">
+                  <h3>Portfolio</h3>
+                  <p>See how your skills are developing by looking at your current portfolio of stocks and their performance and value to date.</p>
+                  <p class="text-center top-spacer-20"><a href="#/portfolio" class="btn btn-primary" role="button">View Portfolio</a></p>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="thumbnail">
+               <img class="top-spacer-20" src="https://d30y9cdsu7xlg0.cloudfront.net/png/4187-200.png" alt="placeholder">
+               <div class="caption">
+                  <h3>History</h3>
+                  <p>Analyse your historical transactions to see the value of each of the decisions you've made as you make them.</p>
+                  <p class="text-center top-spacer-20"><a href="#/history" class="btn btn-primary" role="button">View History</a></p>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="thumbnail">
+               <img class="top-spacer-20" src="https://d30y9cdsu7xlg0.cloudfront.net/png/4199-200.png" alt="placeholder">
+               <div class="caption">
+                  <h3>Leaderboard</h3>
+                  <p>Check out your rank and compare your performance to other Risk players to see how your skills match up.</p>
+                  <p class="text-center top-spacer-20"><a href="#/leaderboard" class="btn btn-primary" role="button">Check Leaderboard</a></p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div ng-if="loggedIn == false">
+   <!-- Navbar -->
+   <nav-bar modals="navModalsLR"></nav-bar>
+   <section class="top-spacer-50 module parallax parallax-1">
+     <div class="container">
+       <h1>
+         Risk
+      </h1>
+      <div style="margin:auto; text-align:center"><a class="register-text" type="button" ng-click="openModal('Register')">Register</a></div>
+     </div>
+     <div style="color:rgba(255, 255, 255, 0.8); font-size:20pt; margin:0 30%; display:block; text-align:center"><p>Hone your trading skills on live ASX data without ever paying a cent.</p><br /></div>
+     <div style="margin:auto" class="arrow-down" smooth-scroll target="contents"></div>
+   </section>
+
+   <section id="contents" class="module content">
+     <div class="container">
+      <div id="left-col" style="padding-right:40px;">
+       <h2>Trades</h2>
+       <p>To buy ten stocks in Greencross Ltd, simply begin typing either the stock code (GXL) or the company name in the search box. <br><br>Basic price information and charting is loaded automatically, while chart overlays and information such as market depth or relavant news can also be found in the lower section of the page.</p></div>
+      <div id="right-col"><img class="welcome" src="app/img/trades.png"> </div>
+     </div>
+   </section>
+
+   <section class="module parallax parallax-2">
+     <div class="container">
+      <div id="left-col" style="padding-right:40px;">
+       <h2>Portfolio</h2>
+       <p>After you place the order, you can view and cancel the pending trade by going to your portfolio. The trade is queued for execution, which occurs periodically. You can also view your current holdings, the historical performance of your full portfolio, and whether your trades have made money yet.</p>
+     </div>
+     <div id="right-col"><img style="max-height:100%;max-width:100%;margin-top:5px" src="app/img/portfolio.png"></div>
+   </section>
+
+   <section class="module content">
+     <div class="container">
+       <div style="width:45%" id="left-col">
+         <h2>Brokerage</h2>
+         <img class="welcome" width="83%" src="app/img/brokerage.png">
+         <p><br />Each trade incurs a brokerage fee, just like the real stock exchange</p>
+       </div>
+       <div style="width:45%" id="right-col">
+         <h2>Pricing Detail</h2>
+         <img class="welcome"  width="90%" src="app/img/pricing.png">
+         <p><br /><em>Current Price</em> reflects the last-executed trade's value (per stock), <em>High</em> and <em>Low</em> are the maximum and minimum price the stock has sold for today, <em>Open</em> was the price of the stock when the exchange opened and <em>Previous Close</em> was the price at 4pm the business day before today. Finally, some companies will pay their shareholders periodic <em>Dividends</em> - the last dividend payment date and amount (per share) are shown in the pricing.</p>
+     </div>
+   </section>
+</div>

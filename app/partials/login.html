@@ -1,0 +1,30 @@
+<div class="modal-header">
+   <h4 class="modal-title">Login</h4>
+</div>
+<form ng-if="loggedIn == false" name="loginForm" class="form-horizontal" ng-submit="validateUser()">
+   <fieldset>
+      <div class="modal-body">
+         <div ng-if="loggedIn">
+            <p>You are already logged in as {{nickname}}</p>
+         </div>
+         <p class="text-center"><span class="label label-danger" ng-if="message">{{message}}</span></p>
+         <div class="form-group">
+            <label for="email" class="col-md-4 control-label">Email</label>
+            <div class="col-md-5">
+               <input type="email" class="form-control" id="email" ng-model="user.email">
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="password" class="col-md-4 control-label">Password</label>
+            <div class="col-md-5">
+               <input type="password" class="form-control" id="password" ng-model="user.password">
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+         <button type="submit" name="submit" id="submit" class="btn btn-primary">Login</button>
+         <button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+      </div>
+   </fieldset>
+</form>

@@ -1,0 +1,134 @@
+<!-- Redirect to welcome page if not logged in -->
+<div ng-if="loggedIn == false">
+   {{locationPath("welcome")}}
+</div>
+<div ng-if="loggedIn == true">
+   <!-- Navbar -->
+   <nav-bar links="navLinks" pills="navPills" modals="navModals" ng-init="updateNav(2)"></nav-bar>
+   <!-- Main Page -->
+   <div class="container top-spacer-70">
+      <!-- Top row: Summary and chart -->
+      <div class="row">
+         <!-- Summary -->
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               Portfolio
+               <a ng-if="!processing" class="pull-right panel-heading-link" ng-click="refresh(true)"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            </div>
+            <div class="panel-body">
+               <div class="col-md-6">
+                  <table class="table table-hover table-bordered">
+                     <tr>
+                        <td class="col-md-6">Cash Holdings</td>
+                        <td class-"col-md-6">{{"$" + (user.cash | number:2).toString()}}</td>
+                     </tr>
+                     <tr>
+                        <td>Share Value Amount</td>
+                        <td>{{"$" + (user.share | number:2).toString()}}</td>
+                     </tr>
+                     <tr>
+                        <td>Pending Orders</td>
+                        <td>{{"$" + (user.pendingVal | number:2).toString()}}</td>
+                     </tr>
+                     <tr class="double-top-border">
+                        <td>Total Portfolio Value</td>
+                        <td>{{"$" + (user.cash + user.share + user.pendingVal | number:2).toString()}}</td>
+                     </tr>
+                     <tr>
+                        <td>Starting Cash</td>
+                        <td>$50,000.00</td>
+                     </tr>
+                     <tr class="double-top-border">
+                        <td>Net Profit</td>
+                        <td ng-if="(user.cash + user.share + user.pendingVal) >= 50000" class="success">{{"$" + (user.cash + user.share + user.pendingVal - 50000 | number:2).toString()}}</td>
+                        <td ng-if="(user.cash + user.share + user.pendingVal) < 50000" class="danger">{{"$" + (user.cash + user.share + user.pendingVal - 50000 | number:2).toString()}}</td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="col-md-6">
+                  <div class="text-center">
+                     {{processing}} &nbsp;
+                  </div>
+                  <div class="row">
+                     <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Second row: Current holdings -->
+      <div class="row">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               Current Stock Holdings
+               <a ng-if="!processing" class="pull-right panel-heading-link" ng-click="refresh(false)"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            </div>
+            <div class="panel-body">
+               <table class="table table-hover table-bordered" ng-if="objectSize(user.holdings) > 0">
+                  <tr class="active">
+                     <td class="col-md-1">Code</td>
+                     <td class="col-md-2 text-center">Quantity</td>
+                     <td class="col-md-2 text-center">Market Value (per share)</td>
+                     <td class="col-md-3 text-center">Net Gain
+                        <button class="glyphicon glyphicon-info-sign">
+                        <span>
+                           The net gain represents the difference between the average purchase price and the current market price.
+                        </span>
+                        </button>
+                     </td>
+                     <td class="col-md-3 text-center">Total Value
+                        <button class="glyphicon glyphicon-info-sign">
+                        <span>
+                           The total value of the share is its quantity multipled by its market value
+                        </span>
+                        </button>
+                     </td>
+                     <td class="col-md-2 text-center">Sell</td>
+                  </tr>
+                  <tr ng-repeat="(code, data) in user.holdings">
+                     <td>{{code.slice(0,-3)}}</td>
+                     <td class="text-center">{{data.quantity}}</td>
+                     <td class="text-center">{{data.price | number:3}}</td>
+                     <td class="text-center">{{data.net_gain | number:2}}</td>
+                     <td class="text-center">{{data.total_value | number:2}}</td>
+                     <td class="button button-green normal-height" ng-click="openOrderForm(code)">$</td>
+                  </tr>
+               </table>
+               <p ng-if="objectSize(user.holdings) == 0">You have no current holdings!</p>
+            </div>
+         </div>
+      </div>
+      <!-- Third row: Pending orders -->
+      <div class="row">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               Pending Orders
+               <a ng-if="!processing" class="pull-right panel-heading-link" ng-click="refresh(false)"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            </div>
+            <div class="panel-body">
+               <table class="table table-hover table-bordered" ng-if="objectSize(user.pending) > 0" ng-table="pendingTable">
+                  <tr class="active">
+                     <td class="col-md-2">Order Date</td>
+                     <td class="col-md-2 text-center">Type</td>
+                     <td class="col-md-2 text-center">Subtype</td>
+                     <td class="col-md-2 text-center">Code</td>
+                     <td class="col-md-2 text-center">Qty</td>
+                     <td class="col-md-2 text-center">Order Price</td>
+                     <td class="col-md-2 text-center">Cancel</td>
+                  </tr>
+                  <tr ng-repeat="(key, info) in user.pending">
+                     <td>{{info.timestamp | date:"dd/MM/yyyy', 'h:mma"}}</td>
+                     <td class="text-center">{{info.type | uppercase}}</td>
+                     <td class="text-center">{{info.subtype | uppercase}}</td>
+                     <td class="text-center">{{info.stock.slice(0,-3)}}</td>
+                     <td class="text-center">{{info.quantity}}</td>
+                     <td class="text-center">{{info.price | number:3}}</td>
+                     <td class="button button-red normal-height" ng-click="openCancelOrder(info.key)">X</td>
+                  </tr>
+               </table>
+               <p ng-if="objectSize(user.pending) == 0">You have no pending orders!</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

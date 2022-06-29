@@ -1,0 +1,142 @@
+<div class="modal-header">
+   <h4 class="modal-title">Place Order</h4>
+</div>
+<form name="orderForm" class="form-horizontal">
+   <fieldset>
+      <div class="modal-body">
+         <div class="row text-center">
+            <span class="label label-danger" ng-bind="status" ng-if="status != 'Order Successful!'"></span>
+         </div>
+
+         <!-- Order Type -->
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="order_type">Order Type</label>
+            <div class="col-md-6">
+               <label class="radio-inline" for="order_type_buy">
+                  <input type="radio" name="order_type" id="order_type_buy" value="buy" ng-model="order.type" ng-checked="true" ng-change="updatePriceDisplay()" ng-init="updatePriceDisplay()" />
+                  Buy
+               </label>
+               <label class="radio-inline" for="order_type_sell">
+                  <input type="radio" name="order_type" id="order_type_sell" value="sell" ng-model="order.type" ng-change="updatePriceDisplay()" required />
+                  Sell
+               </label>
+               <span class="label label-danger" ng-if="submitted && orderForm.order_type.$error.required">Required</span>
+            </div>
+         </div>
+
+         <!-- Order Subtype -->
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="order_subtype">Order Subtype</label>
+            <div class="col-md-8">
+               <label class="radio-inline" for="order_subtype_market">
+                  <input type="radio" name="order_subtype" id="order_subtype_market" value="market" ng-model="order.subtype" ng-checked="true" ng-change="updatePriceDisplay()" />
+                  Market<button class="glyphicon glyphicon-info-sign">
+                     <span>
+                        A market order is executed as soon as possible with the best price available. As a result, the price per share below is only an estimate of the final price. If this estimate differs from the final price, the difference will be refunded or charged when the order is executed.
+                     </span>
+                  </button>
+               </label>
+               <label class="radio-inline" for="order_subtype_limit">
+                  <input type="radio" name="order_subtype" id="order_subtype_limit" value="limit" ng-model="order.subtype" />
+                  Limit
+                  <button class="glyphicon glyphicon-info-sign">
+                     <span>
+                        A sell limit order sets the minimum price you are willing to sell at. A buy limit order sets the maximum price you are willing to buy at. The order is only executed when the stock price reaches or surpasses the chosen limit.
+                     </span>
+                  </button>
+               </label>
+               <label class="radio-inline" for="order_subtype_stop">
+                  <input type="radio" name="order_subtype" id="order_subtype_stop" value="stop" ng-model="order.subtype" />
+                  Stop
+                  <button class="glyphicon glyphicon-info-sign">
+                     <span>
+                        A sell stop order sets the price below market price which you want to sell at. A buy stop order sets the price above market price which you want to buy at. The order is only executed when the stock price reaches or surpasses the chosen stop price.
+                     </span>
+                  </button>
+               </label>
+               <span class="label label-danger" ng-if="submitted && orderForm.order_subtype.$error.required">Required</span>
+            </div>
+         </div>
+
+         <div class="form-group" ng-if="(order.subtype == 'limit' || order.subtype == 'stop') && order.type == 'sell'">
+            <label class="col-md-4 control-label">Bid
+               <button class="glyphicon glyphicon-info-sign" ng-if="order.subtype == 'limit'">
+                  <span>
+                     A limit sell order must have a price greater than or equal to the Bid.
+                  </span>
+               </button>
+               <button class="glyphicon glyphicon-info-sign" ng-if="order.subtype == 'stop'">
+                  <span>
+                     A stop sell order must have an order price less than or equal to the Bid.
+                  </span>
+               </button>
+            </label>
+            <div class="col-md-6 form-padding">
+               <span>{{quote.Bid}}</span>
+            </div>
+         </div>
+
+         <div class="form-group" ng-if="(order.subtype == 'limit' || order.subtype == 'stop') && order.type == 'buy'">
+            <label class="col-md-4 control-label">Ask
+               <button class="glyphicon glyphicon-info-sign" ng-if="order.subtype == 'limit'">
+                  <span>
+                     A limit buy order must have a price less than or equal to the Ask.
+                  </span>
+               </button>
+               <button class="glyphicon glyphicon-info-sign" ng-if="order.subtype == 'stop'">
+                  <span>
+                     A stop buy order must have an order price greater than or equal to the Ask.
+                  </span>
+               </button>
+            </label>
+            <div class="col-md-6 form-padding">
+               <span>{{quote.Ask}}</span>
+            </div>
+         </div>
+
+         <!-- Price -->
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="order_price">Price P/S ($)
+               <button class="glyphicon glyphicon-info-sign">
+                  <span>
+                     The price you are willing to pay per share. You can specify the price if placing a limit or stop order. A market order will take the market price.
+                  </span>
+               </button>
+            </label>
+            <div class="col-md-4">
+            <input name="order_price" id="order_price" type="number" step="0.005" min="0"
+               class="form-control input-md" ng-model="order.price" ng-change="updateTotalPrice()" ng-pattern="/^[0-9]+(\.[0-9]+)*$/" ng-disabled="order.subtype == 'market'"></input>
+               <span class="label label-danger" ng-if="submitted && orderForm.order_price.$error.required">Required</span>
+               <span class="label label-danger" ng-if="orderForm.order_price.$error.pattern || orderForm.order_price.$error.number">Price needs to be a number greater than or equal to $0.00</span>
+            </div>
+         </div>
+
+         <!-- Quantity/Total Price -->
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="order_quantity">Quantity</label>
+            <div class="col-md-4">
+               <input name="order_quantity" id="order_quantity" type="number" step="1" min="1"
+               class="form-control input-md" ng-model="order.quantity" ng-change="updateTotalPrice()" ng-pattern="/^[1-9]+([0-9])*$/" required />
+               <span class="label label-danger" ng-if="submitted && orderForm.order_quantity.$error.required">Required</span>
+               <span class="label label-danger" ng-if="submitted && (order.quantity < 1 || orderForm.order_quantity.$error.pattern || orderForm.order_quantity.$error.number)">Quantity needs to be a number greater than 0</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-4 control-label">OR</label>
+         </div>
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="order_total_price">Total Value ($)</label>
+            <div class="col-md-4">
+               <input name="order_total_price" id="order_total_price" type="number" step="0.5" min="0"
+               class="form-control input-md" ng-model="order.totalPrice" ng-change="updateQuantity()" ng-pattern="/^[0-9]+(\.[0-9]+)*$/" />
+               <span class="label label-danger" ng-if="order.totalPrice < 0 || orderForm.order_total_price.$error.pattern || orderForm.order_total_price.$error.number">Total Price needs to be a number greater than 0</span>
+            </div>
+         </div>
+      </div>
+      <!-- Modal Confirmation Button -->
+      <div class="modal-footer">
+         <button class="btn btn-primary" type="button" ng-click="openOrderConfirm()">Submit Order</button>
+         <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+      </div>
+   </fieldset>
+</form>

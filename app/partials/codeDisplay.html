@@ -1,0 +1,15 @@
+<div class="panel-body text-center">
+   <div class="row">
+      <div class="col-md-3">
+         <button class="btn btn-primary" ng-click="openCompanyList()">Company List</button>
+      </div>
+      <div class="col-md-6">
+         <div class="input-group">
+            <input type="text" ng-model="model.typedStock" ng-click="model.typedStock = null" typeahead="stock.name for stock in codes | filter:$viewValue | limitTo:5" typeahead-editable="true" typeahead-on-select="onSelect($item, $model, $label)" class="form-control text-center">
+            <span class="input-group-btn">
+               <button class="btn btn-primary" ng-click="openOrderForm()" ng-disabled="price == null">Place Order</button>
+            </span>
+         </div>
+      </div>
+   </div>
+</div>  

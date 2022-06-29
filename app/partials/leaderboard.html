@@ -1,0 +1,49 @@
+<!-- Redirect to welcome page if not logged in -->
+<div ng-if="loggedIn == false">
+   {{locationPath("welcome")}}
+</div>
+<div ng-if="loggedIn == true">
+   <!-- Navbar -->
+   <nav-bar links="navLinks" pills="navPills" modals="navModals" ng-init="updateNav(4)"></nav-bar>
+   <!-- Main Page -->
+   <div class="container top-spacer-70">
+      <div class="row">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               Leaderboard
+               <a ng-if="!processing" class="pull-right panel-heading-link" ng-click="refresh()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            </div>
+            <div class="panel-body">
+               <table class="table table-hover table-bordered">
+                  <tr class="active">
+                     <td class="col-md-1">Rank</td>
+                     <td class="col-md-2 text-center">Nickname</td>
+                     <td class="col-md-1 text-center">User Since</td>
+                     <td class="col-md-2 text-center">Cash</td>
+                     <td class="col-md-2 text-center">Shares</td>
+                     <td class="col-md-2 text-center">Pending</td>
+                     <td class="col-md-2 text-center">Total Portfolio Value</td>
+                  </tr>
+                  <tr ng-repeat="details in list">
+                     <td ng-if="details[0] != user.email">{{details[7]}}</td>
+                     <td ng-if="details[0] != user.email" class="text-center">{{details[2]}}</td>
+                     <td ng-if="details[0] != user.email" class="text-center">{{details[3] | date:"dd/MM/yyyy"}}</td>
+                     <td ng-if="details[0] != user.email" class="text-center">{{details[1] | number:2}}</td>
+                     <td ng-if="details[0] != user.email" class="text-center">{{details[4] | number:2}}</td>
+                     <td ng-if="details[0] != user.email" class="text-center">{{details[5] | number:2}}</td>
+                     <td ng-if="details[0] != user.email" class="text-center">{{details[6] | number:2}}</td>
+                     <!-- highlight user bold from the leaderboard -->
+                     <td ng-if="details[0] == user.email"><b>{{details[7]}}</b></td>
+                     <td ng-if="details[0] == user.email" class="text-center"><b>{{details[2]}}</b></td>
+                     <td ng-if="details[0] == user.email" class="text-center"><b>{{details[3] | date:"dd/MM/yyyy"}}</b></td>
+                     <td ng-if="details[0] == user.email" class="text-center"><b>{{details[1] | number:2}}</b></td>
+                     <td ng-if="details[0] == user.email" class="text-center"><b>{{details[4] | number:2}}</b></td>
+                     <td ng-if="details[0] == user.email" class="text-center"><b>{{details[5] | number:2}}</b></td>
+                     <td ng-if="details[0] == user.email" class="text-center"><b>{{details[6] | number:2}}</b></td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

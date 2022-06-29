@@ -1,0 +1,45 @@
+<!-- Redirect to welcome page if not logged in -->
+<div ng-if="loggedIn == false">
+   {{locationPath("welcome")}}
+</div>
+<div ng-if="loggedIn == true">
+   <!-- Navbar -->
+   <nav-bar links="navLinks" pills="navPills" modals="navModals" ng-init="updateNav(3)"></nav-bar>
+   <!-- Main Page -->
+   <div class="container top-spacer-70">
+      <div class="row">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               Order History
+               <a ng-if="!processing" class="pull-right panel-heading-link" ng-click="refresh()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh</a>
+            </div>
+            <div class="panel-body">
+               <table class="table table-hover table-bordered" ng-if="objectSize(transactions) > 0">
+                  <tr class="active">
+                     <td class="col-md-2">Time</td>
+                     <td class="col-md-2 text-center">Order Type</td>
+                     <td class="col-md-2 text-center">Code</td>
+                     <td class="col-md-2 text-center">Quantity</td>
+                     <td class="col-md-2 text-center">Price</td>
+                     <td class="col-md-2 text-center">Net Gain (SELL only)</td>
+                  </tr>
+                  <tr ng-repeat="transaction in transactions">
+                     <td>{{transaction.timestamp | date:"MM/dd/yyyy', 'h:mma"}}</td>
+                     <td class="text-center">{{transaction.type | uppercase}}</td>
+                     <td class="text-center">{{transaction.stock.slice(0,-3)}}</td>
+                     <td class="text-center">{{transaction.quantity}}</td>
+                     <td class="text-center">{{transaction.price | number:3}}</td>
+                     <!-- Cell is red for net loss -->
+                     <td ng-if="transaction.net_gain < 0" class="text-center danger">{{transaction.net_gain | number:2}}</td>
+                     <!-- Cell is green for net gain -->
+                     <td ng-if="transaction.net_gain >= 0" class="text-center success">{{transaction.net_gain | number:2}}</td>
+                     <!-- Cell is green for neutral for buy operations -->
+                     <td ng-if="transaction.net_gain == null" class="text-center">{{transaction.net_gain | number:2}}</td>
+                  </tr>
+               </table>
+               <p ng-if="objectSize(transactions) == 0">You have not made any trades yet!</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

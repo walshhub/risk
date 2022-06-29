@@ -1,0 +1,48 @@
+<div class="modal-header">
+   <h4 class="modal-title">Order Confirmation</h4>
+</div>
+<div class="modal-body">
+   <h6 ng-bind="order.type | uppercase"></h6>
+   <h6 ng-bind="order.subtype | uppercase"></h6>
+   <table class="table modal-body">
+      <tr>
+         <td>Order Price</td>
+         <td ng-if="order.price == null"></td>
+         <td ng-if="order.price != null" ng-bind="'$'+(order.price)"></td>
+      </tr>
+      <tr>
+         <td>Quantity</td>
+         <td ng-bind="order.quantity"></td>
+      </tr>
+       <tr>
+         <td>Order Value
+            <button class="glyphicon glyphicon-info-sign" ng-if="order.subtype == 'market'">
+               <span>
+                  The value may slightly vary if the current market price changes before the order is executed.
+               </span>
+            </button>
+         </td>
+         <td ng-if="order.price >= 0 && order.quantity > 0" ng-bind="'$'+(order.price * order.quantity | number:2)"></td>
+         <td ng-if="order.price == null || order.quantity == null">$0.00</td>
+      </tr>
+      <tr>
+         <td><span ng-if="order.type == 'sell'">(-) </span>Brokerage Fee
+            <button class="glyphicon glyphicon-info-sign">
+               <span>
+                  Brokerage is a fee charged at the rate of $20.00 to facilitate transactions between buyers and sellers.
+               </span>
+            </button>
+         </td>
+         <td ng-bind="'$'+(order.fee | number:2)"></td>
+      </tr>
+      <tr>
+         <td>Total Value</td>
+         <td ng-if="order.price >= 0 && order.quantity > 0 && order.type == 'buy'" ng-bind="'$'+(order.price * order.quantity + order.fee | number:2)"></td>
+         <td ng-if="order.price >= 0 && order.quantity > 0 && order.type == 'sell'" ng-bind="'$'+(order.price * order.quantity - order.fee | number:2)"></td>
+         <td ng-if="order.price == null || order.quantity == null">$0.00</td>
+   </table>
+</div>
+<div class="modal-footer">
+   <button class="btn btn-primary" type="button" ng-click="addOrder()">Confirm Order</button>
+   <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,11 @@
+<div class="news">
+   <div class="panel-body" ng-if="stories == null || stories.length == 0">
+      No currently available news.
+   </div>
+   <div class="list-group">
+      <div ng-if="stories.length >= 1" ng-repeat="story in stories" class="list-group-item">
+         <a href={{story.a.href}} target="_blank" >{{story.a.content}}</a></br>
+         <cite><span>{{story.cite.span.substring(2)}}</span> {{story.cite.content}}</cite>
+      </div>
+   </div>
+</div>

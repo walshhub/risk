@@ -1,0 +1,55 @@
+<!-- Redirect to welcome page if not logged in -->
+<div ng-if="loggedIn == false">
+   {{locationPath("welcome")}}
+</div>
+<div ng-if="loggedIn == true">
+   <!-- Navbar -->
+   <nav-bar links="navLinks" pills="navPills" modals="navModals" ng-init="updateNav(1)"></nav-bar>
+   <div class="container top-spacer-70">
+      <div class="row">
+         <!-- Stock Code -->
+         <accordion close-others="false">
+            <accordion-group heading="Stock Selection" is-open="true" is-disabled="false">
+               <ng-include src="'/app/partials/codeDisplay.html'">
+               </ng-include>
+            </accordion-group>
+            <accordion-group heading="Basic Quote" is-open="true" is-disabled="false" ng-click="isopen = !isopen">
+               <ng-include src="'/app/partials/quoteDisplay.html'">
+               </ng-include>
+            </accordion-group>
+            <accordion-group heading="Historical Price and Volume Charts" is-open="true" is-disabled="false">
+               <div class="panel-body col-md-12">
+                  <div class="row text-center">
+                     <label class="chart-label">ASX:
+                        <input ng-if="!processingHistory" type="checkbox" ng-model="overlayFlags.ASX" ng-click="addAsxOverlay()" >
+                        <input ng-if="processingHistory" type="checkbox" ng-model="overlayFlags.ASX" ng-click="addAsxOverlay()" disabled>
+                     </label>
+                     <label class="chart-label">10-day Exponential Moving Average:
+                        <input ng-if="!processingHistory" type="checkbox" ng-model="overlayFlags.EMA" ng-click="addEmaOverlay()" >
+                        <input ng-if="processingHistory" type="checkbox" ng-model="overlayFlags.EMA" ng-click="addEmaOverlay()" disabled>
+                     </label>
+                     <label class="chart-label">10-day Simple Moving Average:
+                        <input ng-if="!processingHistory" type="checkbox" ng-model="overlayFlags.SMA" ng-click="addSmaOverlay()" >
+                        <input ng-if="processingHistory" type="checkbox" ng-model="overlayFlags.SMA" ng-click="addSmaOverlay()" disabled>
+                     </label>
+                  </div>
+                  <div class="row text-center">
+                     {{processingHistory}} &nbsp;
+                  </div>
+                  <div class="row">
+                     <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+                  </div>
+               </div>
+            </accordion-group>
+            <accordion-group heading="Market Depth" is-open="false" is-disabled="false">
+               <ng-include src="'/app/partials/depthDisplay.html'">
+               </ng-include>
+            </accordion-group>
+            <accordion-group heading="Recent News" is-open="false" is-disabled="false">
+               <ng-include src="'/app/partials/newsDisplay.html'">
+               </ng-include>
+            </accordion-group>
+         </accordion>
+      </div>
+   </div>
+</div>
